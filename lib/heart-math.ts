@@ -17,16 +17,19 @@ function heartPoint(t: number): Point {
 function normalizeContour(raw: Point[]): Point[] {
   const xs = raw.map((point) => point.x);
   const ys = raw.map((point) => point.y);
+
   const minX = Math.min(...xs);
   const maxX = Math.max(...xs);
   const minY = Math.min(...ys);
   const maxY = Math.max(...ys);
+
   const width = maxX - minX;
   const height = maxY - minY;
 
   return raw.map((point) => ({
     x: ((point.x - minX) / width) * 2 - 1,
-    y: -(((point.y - minY) / height) * 2 - 1)
+    // ✅ УБРАЛИ минус здесь
+    y: ((point.y - minY) / height) * 2 - 1
   }));
 }
 
@@ -44,6 +47,7 @@ export function createHeartContour(steps = 720) {
 function randomInsideHeart(iteration: number): Point {
   const radius = Math.sqrt(Math.random());
   const angle = Math.random() * Math.PI * 2;
+
   const sample = heartPoint(angle);
   const scale = 0.24 + radius * (0.98 - 0.24);
   const jitter = Math.sin(iteration * 12.9898) * 0.04;
