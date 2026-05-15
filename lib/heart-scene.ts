@@ -31,10 +31,7 @@ type Spark = {
   alpha: number;
 };
 
-const QUALITY_MAP: Record<
-  DeviceTier,
-  { textCount: number; sparks: number }
-> = {
+const QUALITY_MAP: Record<DeviceTier, { textCount: number; sparks: number }> = {
   low: { textCount: 180, sparks: 12 },
   medium: { textCount: 260, sparks: 16 },
   high: { textCount: 380, sparks: 20 }
@@ -54,8 +51,11 @@ export function createHeartScene(
   canvas: HTMLCanvasElement,
   options: SceneOptions
 ) {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas 2D required");
+  const context = canvas.getContext("2d");
+  if (!context) {
+    throw new Error("Canvas 2D context is required.");
+  }
+  const ctx = context;
 
   const quality = QUALITY_MAP[options.tier];
 
@@ -102,7 +102,6 @@ export function createHeartScene(
     width = bounds.width;
     height = bounds.height;
 
-    // 🔥 DPR жестко фиксируем
     canvas.width = width;
     canvas.height = height;
 
@@ -124,7 +123,6 @@ export function createHeartScene(
 
     ctx.globalCompositeOperation = "lighter";
 
-    // 🔥 sparks упрощены
     sparks.forEach((s) => {
       s.y -= s.speed * 0.0015;
       if (s.y < 0) s.y = 1;
@@ -135,7 +133,7 @@ export function createHeartScene(
       ctx.fill();
     });
 
-    particles.forEach((p, i) => {
+    particles.forEach((p) => {
       const time = t * p.speed + p.phase;
 
       const targetX =
@@ -159,7 +157,6 @@ export function createHeartScene(
       ctx.textBaseline = "middle";
       ctx.fillStyle = `rgba(255,70,110,${clamp(p.alpha, 0.2, 1)})`;
 
-      // ❌ УБРАЛ shadowBlur — главный буст FPS
       ctx.shadowBlur = 0;
 
       ctx.fillText(p.text, 0, 0);
