@@ -1,0 +1,42 @@
+.scene-shell {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 38, 96, 0.16), transparent 22%),
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 102, 0.1), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 35%),
+    #000;
+}
+
+.grain-overlay {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.22;
+}
+
+.vignette-overlay {
+  background:
+    radial-gradient(circle at center, transparent 38%, rgba(0, 0, 0, 0.22) 72%, rgba(0, 0, 0, 0.76) 100%);
+}
+
+.chromatic-text {
+  position: relative;
+}
+
+.chromatic-text::before,
+.chromatic-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+.chromatic-text::before {
+  color: rgba(255, 55, 102, 0.7);
+  transform: translate3d(-1px, 0, 0);
+}
+
+.chromatic-text::after {
+  color: rgba(255, 111, 171, 0.55);
+  transform: translate3d(1px, 0, 0);
+}

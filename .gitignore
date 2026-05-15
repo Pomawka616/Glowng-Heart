@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# next build output
+.next/
+out/
+
+# local verification runtime
+tools/
+
+# logs
+npm-debug.log*
+
+# system
+.DS_Store
+Thumbs.db
