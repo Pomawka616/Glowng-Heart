@@ -1,3 +1,127 @@
+Skip to content
+Pomawka616
+Glowng-Heart
+Repository navigation
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security and quality
+Insights
+Settings
+Files
+Go to file
+t
+T
+.github/workflows
+animations
+app
+components
+hooks
+lib
+cn.ts
+heart-math.ts
+heart-scene.ts
+public
+styles
+.eslintrc.json
+.gitignore
+README.md
+next-env.d.ts
+next.config.ts
+package-lock.json
+package.json
+postcss.config.js
+tailwind.config.ts
+tsconfig.json
+video_2026-05-15_22-47-03.mp4
+Glowng-Heart/lib
+/
+heart-scene.ts
+in
+main
+
+Edit
+
+Preview
+Indent mode
+
+Spaces
+Indent size
+
+2
+Line wrap mode
+
+No wrap
+Editing heart-scene.ts file contents
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
 import type { DeviceTier } from "@/hooks/use-device-tier";
 import { createHeartContour, createHeartFill } from "@/lib/heart-math";
 
@@ -64,117 +188,5 @@ export function createHeartScene(
   let raf = 0;
   let startTime = 0;
 
-  const contour = createHeartContour(
-    Math.max(quality.textCount, 240)
-  );
-  const fill = createHeartFill(quality.textCount);
-
-  const particles: Particle[] = fill.map((p, i) => {
-    const anchor = contour[i % contour.length];
-    return {
-      x: (Math.random() * 2 - 1) * 1.4,
-      y: (Math.random() * 2 - 1) * 1.4,
-      baseX: anchor.x,
-      baseY: anchor.y,
-      randomX: (Math.random() * 2 - 1) * 0.05,
-      randomY: (Math.random() * 2 - 1) * 0.05,
-      size: 10 + Math.random() * 10,
-      alpha: 0,
-      depth: 0.5 + Math.random() * 0.8,
-      phase: Math.random() * Math.PI * 2,
-      speed: 0.6 + Math.random() * 0.6,
-      rotation: (Math.random() * 2 - 1) * 0.03,
-      targetAlpha: 0.5 + Math.random() * 0.5,
-      text: COPY[0]
-    };
-  });
-
-  const sparks: Spark[] = Array.from({ length: quality.sparks }, () => ({
-    x: Math.random(),
-    y: Math.random(),
-    radius: 1 + Math.random() * 2,
-    speed: 0.2 + Math.random() * 0.4,
-    alpha: 0.1 + Math.random() * 0.2
-  }));
-
-  function resize() {
-    const bounds = canvas.getBoundingClientRect();
-    width = bounds.width;
-    height = bounds.height;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-  }
-
-  function render(now: number) {
-    if (!startTime) startTime = now;
-
-    const t = (now - startTime) / 1000;
-    const breathe = 1 + Math.sin(t * 1.5) * 0.03;
-
-    const mobile = width < 768;
-    const heartSize = Math.min(width, height) * (mobile ? 0.34 : 0.31);
-    const centerX = width * 0.5;
-    const centerY = height * 0.55;
-
-    ctx.clearRect(0, 0, width, height);
-
-    ctx.globalCompositeOperation = "lighter";
-
-    sparks.forEach((s) => {
-      s.y -= s.speed * 0.0015;
-      if (s.y < 0) s.y = 1;
-
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(255,80,120,${s.alpha})`;
-      ctx.arc(s.x * width, s.y * height, s.radius, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    particles.forEach((p) => {
-      const time = t * p.speed + p.phase;
-
-      const targetX =
-        p.baseX * breathe + Math.cos(time) * 0.04 * p.depth;
-      const targetY =
-        p.baseY * breathe + Math.sin(time) * 0.04 * p.depth;
-
-      p.x = lerp(p.x, targetX, 0.08);
-      p.y = lerp(p.y, targetY, 0.08);
-      p.alpha = lerp(p.alpha, p.targetAlpha, 0.05);
-
-      const x = centerX + p.x * heartSize;
-      const y = centerY - p.y * heartSize;
-
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(p.rotation);
-
-      ctx.font = `600 ${p.size}px Inter, Arial`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = `rgba(255,70,110,${clamp(p.alpha, 0.2, 1)})`;
-
-      ctx.shadowBlur = 0;
-
-      ctx.fillText(p.text, 0, 0);
-      ctx.restore();
-    });
-
-    raf = requestAnimationFrame(render);
-  }
-
-  return {
-    start() {
-      resize();
-      window.addEventListener("resize", resize);
-      raf = requestAnimationFrame(render);
-    },
-    dispose() {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-    }
-  };
-}
+Use Control + Shift + m to toggle the tab key moving focus. Alternatively, use esc then tab to move to the next interactive element on the page.
+ 
